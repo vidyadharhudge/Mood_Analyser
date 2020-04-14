@@ -3,13 +3,15 @@ package com.Mood_Analyser;
 public class MoodAnalyzer
 {
     private String message;
-
+    /* Default constructor*/
+    public MoodAnalyzer()
+    {
+    }
     /* parameterised constructor*/
     public MoodAnalyzer(String message)
     {
         this.message = message;
     }
-
     /*If Message Contains Sad Return Sad Else Return Happy*/
     public String analyseTheMood()
     {
