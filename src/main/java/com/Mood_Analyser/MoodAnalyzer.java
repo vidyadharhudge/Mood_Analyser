@@ -1,25 +1,32 @@
 package com.Mood_Analyser;
 
-public class MoodAnalyzer
-{
+public class MoodAnalyzer {
     private String message;
+
     /* Default constructor*/
-    public MoodAnalyzer()
-    {
+    public MoodAnalyzer() {
     }
+
     /* parameterised constructor*/
-    public MoodAnalyzer(String message)
-    {
+    public MoodAnalyzer(String message) {
         this.message = message;
     }
+
     /*If Message Contains Sad Return Sad Else Return Happy*/
-    public String analyseTheMood()
-    {
-        if (message.contains("Sad"))
+    public String analyseTheMood() {
+        try
         {
-            return "Sad";
+            if (message.contains("Sad"))
+            {
+                return "Sad";
+            }
+            else
+            {
+
+                return "Happy";
+            }
         }
-        else
+        catch(NullPointerException e)
         {
             return "Happy";
         }
