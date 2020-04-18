@@ -1,5 +1,6 @@
 package com.Mood_Analyser;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory
@@ -54,6 +55,32 @@ public class MoodAnalyserFactory
         return null;
     }
 
+    /* Methode For Setting Field Value */
+    public static String setFieldValue(MoodAnalyzer obj,String message,String fieldName)
+    {
+        try
+        {
+            Field field=obj.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(obj,message);
+            return (String) obj.getClass().getDeclaredMethod("analyseTheMood").invoke(obj);
+        }
+        catch (InvocationTargetException exception)
+        {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.METHODE_INVOCATION_ISSUE,exception.getMessage());
+        }
+        catch(NoSuchFieldException exception)
+        {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD,exception.getMessage());
+        }
+        catch (NoSuchMethodException | IllegalAccessException exception)
+        {
+            exception.printStackTrace();
+        }
+        return "message";
+    }
+
+    /* Exception Methode */
     public static Constructor<?>getConstructor(String className ,Class constructor) throws MoodAnalyzerException
     {
         try

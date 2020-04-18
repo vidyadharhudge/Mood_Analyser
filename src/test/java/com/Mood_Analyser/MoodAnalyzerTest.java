@@ -167,6 +167,49 @@ public class MoodAnalyzerTest
 
     }
 
+    /* Test Case 7.1 :Set Happy Message With Reflector Should Return Happy Mood */
+    @Test
+    public void givenFieldNameAndItsValue_WhenProper_ThenShouldReturnValue()
+    {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer();
+            String mood=MoodAnalyserFactory.setFieldValue(reflectionMoodObject,"I Am In Happy Mood","message");
+            Assert.assertEquals( "Happy",mood);
+    }
+
+    /* Test Case 7.2 : Set Field  When ImProper Should Throw Exception With No Such Field */
+    @Test
+    public void givenFieldNameAndItsValue_WhenFieldNotFound_ThenShouldThrowMoodAnalyzerException()
+    {
+        try
+        {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer();
+            MoodAnalyserFactory.setFieldValue(reflectionMoodObject,"Happy","message1");
+        }
+        catch (MoodAnalyzerException exception)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD,exception.type);
+        }
+
+    }
+
+    /* Test Case 7.3 : Set Null Message  With Reflector Should Throw Exception */
+    @Test
+    public void givenFieldNameAndNullValue_ThenShouldThrowMoodAnalyzerException()
+    {
+        try
+        {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer();
+            MoodAnalyserFactory.setFieldValue(reflectionMoodObject,"null","message");
+        }
+        catch (MoodAnalyzerException exception)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.METHODE_INVOCATION_ISSUE,exception.type);
+        }
+
+    }
+
+
+
 
 
 
