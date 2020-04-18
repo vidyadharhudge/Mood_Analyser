@@ -16,7 +16,6 @@ public class MoodAnalyzerTest
        String mood=moodAnalyzer.analyseTheMood();
        Assert.assertEquals("Sad",mood);
    }
-
    /* Test cse 1.2 : Given I am In Happy Mood Message In Constructor Should Return Happy*/
    @Test
     public void givenMessage_InConstuctor_WhenContainsAnyMood_ThenShouldReturnHappy()
@@ -41,7 +40,6 @@ public class MoodAnalyzerTest
            Assert.assertEquals("Mood Cannot Be EMPTY ,Please Enter Valid Mood", exception.type);
        }
    }
-
     /* Test cse 3.2 : Given Null Mood Should Throw MoodAnalyzerException */
     @Test
     public void givenMessage_InConstuctor_WhenNull_ThenShouldThrowMoodAnalyzerException()
@@ -87,7 +85,6 @@ public class MoodAnalyzerTest
             exception.printStackTrace();
         }
     }
-
     /* 4.2 Given Class Name Is Inproper Should Throw MoodAnalyzer Exception */
     @Test
     public void givenClassName_WhenImproper_ThenShouldReturnMoodAnalyzerException()
@@ -101,19 +98,36 @@ public class MoodAnalyzerTest
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.CLASS_NOT_FOUND,exception.type);
         }
     }
-
     /* 4.3 Given Class When Constructor Not Proper Should Throw MoodAnalyzer Exception */
     @Test
     public void givenClassName_WhenConstructorNotproper_ThenShouldReturnMoodAnalyzerException()
     {
         try
         {
-            MoodAnalyserFactory.getConstructor("com.Mood_Analyser.MoodAnalyzer",Integer.class);
+            MoodAnalyserFactory.getConstructor("com.Mood_Analyser.MoodAnalyzer",String.class);
         }
         catch (MoodAnalyzerException exception)
         {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.METHOD_NOT_FOUND,exception.type);
         }
+
+    }
+
+    /* 5.1 Given MoodAnalyzer Is Proper Return MoodAnalyzer Object */
+    /* 5.2,5.3 test case is same as Test Case 4.2,4.3 */
+    @Test
+    public void givenMoodAnalyzerClassUsingParameterizedConstructor_WhenProper_ThenShouldReturnObject()
+    {
+        try
+        {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer("I Am In Happy Mood");
+            Assert.assertEquals(new MoodAnalyzer("I Am In Happy Mood"),reflectionMoodObject);
+        }
+        catch (MoodAnalyzerException exception)
+        {
+            exception.printStackTrace();
+        }
+
     }
 
 
