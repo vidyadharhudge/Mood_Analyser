@@ -1,5 +1,4 @@
 package com.Mood_Analyser;
-import com.Mood_Analyser.MoodAnalyzerException;
 
 public class MoodAnalyzer
 {
@@ -22,7 +21,7 @@ public class MoodAnalyzer
         {
             if (message.length() == 0)
             {
-                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.IS_EMPTY, "Mood Cannot Be IS_EMPTY ,Please Enter Proper Mood");
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY, "Mood Cannot Be EMPTY ,Please Enter Valid Mood");
             }
             if (message.contains("Sad"))
             {
@@ -30,14 +29,13 @@ public class MoodAnalyzer
             }
             else
             {
-
                 return "Happy";
             }
         }
-        catch(NullPointerException e)
+        catch(NullPointerException exception)
         {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.IS_NULL,"Mood Cannot Be IS_NULL,Please Enter Proper Mood");
-
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL,"Mood Cannot Be NULL,Please Enter Valid Mood");
         }
     }
+
 }
