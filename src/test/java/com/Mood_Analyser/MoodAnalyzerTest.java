@@ -16,6 +16,7 @@ public class MoodAnalyzerTest
        String mood=moodAnalyzer.analyseTheMood();
        Assert.assertEquals("Sad",mood);
    }
+
    /* Test cse 1.2 : Given I am In Happy Mood Message In Constructor Should Return Happy*/
    @Test
     public void givenMessage_InConstuctor_WhenContainsAnyMood_ThenShouldReturnHappy()
@@ -40,6 +41,7 @@ public class MoodAnalyzerTest
            Assert.assertEquals("Mood Cannot Be EMPTY ,Please Enter Valid Mood", exception.type);
        }
    }
+
     /* Test cse 3.2 : Given Null Mood Should Throw MoodAnalyzerException */
     @Test
     public void givenMessage_InConstuctor_WhenNull_ThenShouldThrowMoodAnalyzerException()
@@ -71,6 +73,7 @@ public class MoodAnalyzerTest
             exception.printStackTrace();
         }
     }
+
     /* 4.1 Given MoodAnalyser Class Name Should Return MoodAnalyser object*/
     @Test
     public void givenMoodAnalyzerClassUsingDefaultConstructor_WhenProper_ThenShouldReturnObject()
@@ -85,6 +88,7 @@ public class MoodAnalyzerTest
             exception.printStackTrace();
         }
     }
+
     /* 4.2 Given Class Name Is Inproper Should Throw MoodAnalyzer Exception */
     @Test
     public void givenClassName_WhenImproper_ThenShouldReturnMoodAnalyzerException()
@@ -95,9 +99,10 @@ public class MoodAnalyzerTest
         }
         catch (MoodAnalyzerException exception)
         {
-            Assert.assertEquals(MoodAnalyzerException.ExceptionType.CLASS_NOT_FOUND,exception.type);
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,exception.type);
         }
     }
+
     /* 4.3 Given Class When Constructor Not Proper Should Throw MoodAnalyzer Exception */
     @Test
     public void givenClassName_WhenConstructorNotproper_ThenShouldReturnMoodAnalyzerException()
@@ -108,12 +113,12 @@ public class MoodAnalyzerTest
         }
         catch (MoodAnalyzerException exception)
         {
-            Assert.assertEquals(MoodAnalyzerException.ExceptionType.METHOD_NOT_FOUND,exception.type);
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHODE,exception.type);
         }
 
     }
 
-    /* 5.1 Given MoodAnalyzer Is Proper Return MoodAnalyzer Object */
+    /*  Test Case :5.1 Given MoodAnalyzer Is Proper Return MoodAnalyzer Object */
     /* 5.2,5.3 test case is same as Test Case 4.2,4.3 */
     @Test
     public void givenMoodAnalyzerClassUsingParameterizedConstructor_WhenProper_ThenShouldReturnObject()
@@ -126,6 +131,38 @@ public class MoodAnalyzerTest
         catch (MoodAnalyzerException exception)
         {
             exception.printStackTrace();
+        }
+
+    }
+
+    /* Test Case 6.1 :Given Happy Message Using Reflection When Proper Should Return Happy Mood */
+    @Test
+    public void givenProperMethodName_WhenInvoked_ThenShouldReturnHappy()
+    {
+        try
+        {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer("I Am In Happy Mood");
+            String mood=MoodAnalyserFactory.invokeMethode(reflectionMoodObject,"analyseTheMood");
+            Assert.assertEquals( "Happy",mood);
+        }
+        catch (MoodAnalyzerException exception)
+        {
+            exception.printStackTrace();
+        }
+    }
+
+    /* Test Case 6.2 :Given Happy Message When ImProper Method Should Throw MoodAnalyzerException */
+    @Test
+    public void givenMethodName_WhenNotProper_ThenShouldThrowMoodAnalyzerException()
+    {
+        try
+        {
+            MoodAnalyzer reflectionMoodObject=MoodAnalyserFactory.createMoodAnalyzer("I Am In Happy Mood");
+            MoodAnalyserFactory.invokeMethode(reflectionMoodObject,"analyseTheMood1");
+        }
+        catch (MoodAnalyzerException exception)
+        {
+           Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHODE,exception.type);
         }
 
     }

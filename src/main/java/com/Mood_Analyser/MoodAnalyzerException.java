@@ -5,7 +5,7 @@ public class MoodAnalyzerException extends RuntimeException
     /* Enum Methode For IS_EMPTY and IS_NULL*/
     public enum ExceptionType
     {
-        EMPTY,NULL,CLASS_NOT_FOUND,METHOD_NOT_FOUND;
+        EMPTY,NULL,NO_SUCH_CLASS,NO_SUCH_METHODE;
     }
     public final ExceptionType type;
 

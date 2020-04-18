@@ -1,5 +1,6 @@
 package com.Mood_Analyser;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory
 {
@@ -18,6 +19,8 @@ public class MoodAnalyserFactory
         }
         return null;
     }
+
+    /* parameterized Constructor */
     public static MoodAnalyzer createMoodAnalyzer(String message)
     {
         try
@@ -32,6 +35,25 @@ public class MoodAnalyserFactory
         }
         return null;
     }
+
+    /* Methode For Invoking */
+    public static String invokeMethode(MoodAnalyzer obj,String methodeName)
+    {
+        try
+        {
+            return (String) obj.getClass().getDeclaredMethod(methodeName).invoke(obj);
+        }
+        catch (NoSuchMethodException exception)
+        {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHODE,exception.getMessage());
+        }
+        catch (IllegalAccessException | InvocationTargetException exception)
+        {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
     public static Constructor<?>getConstructor(String className ,Class constructor) throws MoodAnalyzerException
     {
         try
@@ -41,11 +63,12 @@ public class MoodAnalyserFactory
         }
         catch (ClassNotFoundException exception)
         {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.CLASS_NOT_FOUND,exception.getMessage());
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_CLASS,exception.getMessage());
         }
         catch (NoSuchMethodException exception)
         {
-            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.METHOD_NOT_FOUND,exception.getMessage());
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHODE,exception.getMessage());
         }
     }
+
 }
